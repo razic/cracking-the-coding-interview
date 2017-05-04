@@ -9,5 +9,5 @@ The book encourages readers to physically write out their solutions on paper,
 and then type it in "word for word" on a computer, taking note of all problems
 encountered getting it working.
 
-These are my solutions, written in Golang. I hope to come back and look at
-various solutions and their implementations when I need a refresher.
+These are my solutions, written in Golang. I hope to come back, and look at
+various solutions, and their implementations when I need a refresher.
