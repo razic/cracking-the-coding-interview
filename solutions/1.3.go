@@ -28,6 +28,10 @@ func main() {
 		os.Exit(1)
 	}
 
+	if truelen > len(str) {
+		os.Exit(1)
+	}
+
 	// trim string from the end to be the true length
 	str = str[:truelen]
 
