@@ -4,7 +4,7 @@
 // The palindrome does not need to be limited to dictionary words.
 //
 // Example:
-//   Input: Tact Coa
+//   Input: "Tact Coa"
 //   Output: True (permutations: "taco cat", "atco cta", etc...)
 
 package main

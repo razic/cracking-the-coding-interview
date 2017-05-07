@@ -6,7 +6,6 @@
 // Example
 //  Input: "Mr John Smith    "
 //  Output: "Mr%20John%20Smith"
-//
 
 package main
 
