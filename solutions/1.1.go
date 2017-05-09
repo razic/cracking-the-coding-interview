@@ -7,23 +7,30 @@ import (
 	"os"
 )
 
-func main() {
-	if len(os.Args) < 2 {
-		os.Exit(1)
-	}
-
-	str := os.Args[1]
-	strlen := len(str)
-
-	for i := 0; i < strlen; i++ {
-		for j := 0; j < strlen; j++ {
+func isUnique(str string) bool {
+	for i, runeA := range str {
+		for j, runeB := range str {
+			// skip if we are on the same index in both loops
 			if i == j {
 				continue
 			}
 
-			if str[i] == str[j] {
-				os.Exit(1)
+			// we have a match, so the string is not unique
+			if runeA == runeB {
+				return false
 			}
 		}
+	}
+
+	return true
+}
+
+func main() {
+	if len(os.Args) != 2 {
+		os.Exit(1)
+	}
+
+	if !isUnique(os.Args[1]) {
+		os.Exit(1)
 	}
 }
