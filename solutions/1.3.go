@@ -4,7 +4,7 @@
 // string.
 //
 // Example
-//  Input: "Mr John Smith    "
+//  Input: "Mr John Smith    ", 13
 //  Output: "Mr%20John%20Smith"
 
 package main
@@ -15,45 +15,43 @@ import (
 	"strconv"
 )
 
+func urlify(str []byte, length int) {
+	var spaceCount, newLength int
+
+	for i := 0; i < length; i++ {
+		if str[i] == ' ' {
+			spaceCount++
+		}
+	}
+
+	newLength = length + (spaceCount * 2)
+
+	for i := length - 1; i >= 0; i-- {
+		if str[i] == ' ' {
+			str[newLength-1] = '0'
+			str[newLength-2] = '2'
+			str[newLength-3] = '%'
+			newLength -= 3
+		} else {
+			str[newLength-1] = str[i]
+			newLength--
+		}
+	}
+}
+
 func main() {
 	if len(os.Args) < 3 {
 		os.Exit(1)
 	}
 
 	str := []byte(os.Args[1])
-	truelen, err := strconv.Atoi(os.Args[2])
+	n, err := strconv.Atoi(os.Args[2])
 
 	if err != nil {
 		os.Exit(1)
 	}
 
-	if truelen > len(str) {
-		os.Exit(1)
-	}
-
-	// trim string from the end to be the true length
-	str = str[:truelen]
-
-	// count actual whitespaces and save their indicies
-	spaces := []int{}
-	for i, n := range str {
-		if n == ' ' {
-			spaces = append(spaces, i)
-		}
-	}
-
-	for i, n := range spaces {
-		rem := make([]byte, truelen-n)
-
-		// make a copy of everything after the space
-		copy(rem, str[n+(i*2)+1:])
-
-		// slice the original from the beginning to the space
-		str = str[:n+(i*2)]
-
-		str = append(str, []byte("%20")...)
-		str = append(str, rem...)
-	}
+	urlify(str, n)
 
 	fmt.Printf("%s\n", str)
 }
