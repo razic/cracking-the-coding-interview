@@ -8,42 +8,47 @@ import (
 )
 
 func checkPermutation(strA, strB string) bool {
-	// if the length isn't the same, it can't be a permutation
+	// lengths are different, can't be a permutation
 	if len(strA) != len(strB) {
-		os.Exit(1)
-	}
-
-	same := true
-	occurrences := map[byte][2]int{}
-
-	// in this loop we'll count the occurences for each byte in both strings
-	// we'll also determine if the two strings are the same set of bytes
-	for i := 0; i < len(strA); i++ {
-		a := strA[i]
-		b := strB[i]
-		occa := occurrences[a][0]
-		occb := occurrences[b][1]
-
-		// the bytes don't match, they can't be the same string
-		if a != b {
-			same = false
-		}
-
-		occa++
-		occb++
-	}
-
-	// same string, so not a permutation
-	if same == true {
 		return false
 	}
 
-	for _, v := range occurrences {
-		if v[0] != v[1] {
+	// string is the same, can't be a permutation
+	if strA == strB {
+		return false
+	}
+
+	// make a map to store occurences of runes in both strings
+	runeCounts := make(map[rune][]int)
+
+	// initialize zero value for rune counts in first string
+	for _, r := range strA {
+		runeCounts[r] = []int{0, 0}
+	}
+
+	// initialize zero value for rune counts in second string
+	for _, r := range strB {
+		runeCounts[r] = []int{0, 0}
+	}
+
+	// count occurences of each rune in first string
+	for _, r := range strA {
+		runeCounts[r][0]++
+	}
+
+	// count occurences of each rune in second string
+	for _, r := range strB {
+		runeCounts[r][1]++
+	}
+
+	// validate the occurrences of each rune match up
+	for _, counts := range runeCounts {
+		if counts[0] != counts[1] {
 			return false
 		}
 	}
 
+	// if we got this far, it's a valid permutation
 	return true
 }
 
