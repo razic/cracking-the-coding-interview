@@ -16,25 +16,16 @@ import (
 )
 
 func urlify(str []byte, length int) {
-	var spaceCount, newLength int
-
-	for i := 0; i < length; i++ {
-		if str[i] == ' ' {
-			spaceCount++
-		}
-	}
-
-	newLength = length + (spaceCount * 2)
+	spacing := len(str) - length
 
 	for i := length - 1; i >= 0; i-- {
 		if str[i] == ' ' {
-			str[newLength-1] = '0'
-			str[newLength-2] = '2'
-			str[newLength-3] = '%'
-			newLength -= 3
+			str[i+spacing] = '0'
+			str[i+spacing-1] = '2'
+			str[i+spacing-2] = '%'
+			spacing -= 2
 		} else {
-			str[newLength-1] = str[i]
-			newLength--
+			str[i+spacing] = str[i]
 		}
 	}
 }
