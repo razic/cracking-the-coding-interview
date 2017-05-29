@@ -1,53 +1,58 @@
-// *Palindrome Permutation:* Given a string, write a function to check if it is
-// a permutation of a palindrome. A palindrome is a word or phrase that is the
-// same forwards and backwards. A permutation is a rearrangement of letters.
-// The palindrome does not need to be limited to dictionary words.
-//
-// Example:
-//   Input: "Tact Coa"
-//   Output: True (permutations: "taco cat", "atco cta", etc...)
-
 package main
 
-import (
-	"os"
-)
+import "os"
+
+func isPermutationOfPalindrome(str string) bool {
+	pairs := make(map[rune]int)
+	numRunes := 0
+	numPairs := 0
+	numSpaces := 0
+	numPairsExpected := 0
+
+	for _, r := range str {
+		numRunes++
+
+		// count the spaces and continue
+		if r == ' ' {
+			numSpaces++
+			continue
+		}
+
+		pairs[r]++
+
+		// found a pair
+		if pairs[r] == 2 {
+			pairs[r] = 0
+			numPairs++
+		}
+	}
+
+	// if there are less than 3 runes (minus spaces), can't be a palindrome
+	if numRunes-numSpaces < 3 {
+		return false
+	}
+
+	// calculate the number of expected pairs
+	if (numRunes-numSpaces)%2 == 1 {
+		numPairsExpected = ((numRunes - 1) - numSpaces) / 2
+	} else {
+		numPairsExpected = (numRunes - numSpaces) / 2
+	}
+
+	// if the number of pairs found matches whats expected, we have a true case
+	if numPairs == numPairsExpected {
+		return true
+	}
+
+	return false
+}
 
 func main() {
 	if len(os.Args) < 2 {
 		os.Exit(1)
 	}
 
-	str := []byte(os.Args[1])
-
-	if isPermutationOfPalindrome(str) {
-		os.Exit(0)
+	if !isPermutationOfPalindrome(os.Args[1]) {
+		os.Exit(1)
 	}
-
-	os.Exit(1)
-}
-
-func isPermutationOfPalindrome(str []byte) bool {
-	oddCount := 0
-	counts := map[byte]int{}
-
-	for _, c := range str {
-		// we only care about ascii alphabet characters
-		if (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') {
-			// uppercase should be considered the same as its lowercase
-			if c > 'Z' {
-				c = c - 32
-			}
-
-			counts[c]++
-
-			if counts[c]%2 == 1 {
-				oddCount++
-			} else {
-				oddCount--
-			}
-		}
-	}
-
-	return oddCount <= 1
 }
