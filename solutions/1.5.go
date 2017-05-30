@@ -12,6 +12,7 @@
 package main
 
 import (
+	"bytes"
 	"os"
 )
 
@@ -20,60 +21,60 @@ func main() {
 		os.Exit(1)
 	}
 
-	a := os.Args[1]
-	b := os.Args[2]
-
-	if a == b {
-		os.Exit(0)
-	}
-
-	diff := len(a) - len(b)
-
-	// larger than a difference of 1 in length implies more than 1 edit
-	if diff*diff > 1 {
+	if !isOneAway(os.Args[1], os.Args[2]) {
 		os.Exit(1)
 	}
-
-	if isOneAway(a, b, diff) == true {
-		os.Exit(0)
-	}
-
-	os.Exit(1)
 }
 
-func isOneAway(a, b string, diff int) bool {
-	var longer string
-	var shorter string
-
-	if len(a) > len(b) {
-		longer = a
-		shorter = b
-	} else {
-		longer = b
-		shorter = a
+func isOneAway(a, b string) bool {
+	if a == b {
+		return true
 	}
 
+	var (
+		bufA, bufB      bytes.Buffer
+		longer, shorter []rune
+	)
+
+	bufA.WriteString(a)
+	bufB.WriteString(b)
+
+	// capture unicode code points
+	runesA := bytes.Runes(bufA.Bytes())
+	runesB := bytes.Runes(bufB.Bytes())
+
+	// capture the longer and shorter
+	if len(runesA) > len(runesB) {
+		longer = runesA
+		shorter = runesB
+	} else {
+		longer = runesB
+		shorter = runesA
+	}
+
+	lenDiff := len(longer) - len(shorter)
 	discrepancies := 0
 
-	for i := 0; i < len(shorter); i++ {
+	// larger than a difference of 1 in length implies more than 1 edit
+	if lenDiff > 1 {
+		return false
+	}
+
+	for i, r := range shorter {
 		// we have a match, so continue
-		if shorter[i] == longer[i] {
+		if r == longer[i] {
 			continue
 		}
 
 		// if the length of the strings differ by 1, the next character over
 		// should be our match, otherwise we've already got two discrepancies
-		if diff != 0 && shorter[i] == longer[i+1] {
+		if lenDiff != 0 && r == longer[i+1] {
 			continue
 		}
 
 		discrepancies++
 	}
 
-	// total up our discrepancies, plus the absolute value of our difference
-	// note: this squaring to obtain an absolute difference only works for the
-	// value "1" and "-1". if this algorithm needed to detect more than one
-	// edit, this, and the remainder of the algorithm would need to be modified
-	// accordingly
-	return discrepancies+(diff*diff) < 2
+	// total up our discrepancies, plus the difference in length
+	return discrepancies+lenDiff < 2
 }
