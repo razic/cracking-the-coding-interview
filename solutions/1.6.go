@@ -45,8 +45,6 @@ func compress(str string) string {
 		newLen += int(math.Log10(float64(lengths[i]))) + 2
 	}
 
-	fmt.Printf("newLen: %d\n", newLen)
-
 	// check to see if it still makes sense to perform the compression
 	if newLen >= len(runes) {
 		return str
@@ -66,5 +64,6 @@ func main() {
 	if len(os.Args) < 2 {
 		os.Exit(1)
 	}
+
 	fmt.Printf("%s\n", compress(os.Args[1]))
 }
