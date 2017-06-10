@@ -30,14 +30,13 @@ func zeroMatrix(matrix [][]int, n, m int) {
 }
 
 func main() {
+	n, m := 4, 5
 	matrix := [][]int{
 		[]int{1, 1, 0, 1, 1},
 		[]int{1, 1, 1, 1, 0},
 		[]int{1, 0, 1, 1, 1},
 		[]int{1, 1, 1, 1, 1},
 	}
-
-	n, m := 4, 5
 
 	for i := 0; i < n; i++ {
 		fmt.Printf("%v\n", matrix[i])
