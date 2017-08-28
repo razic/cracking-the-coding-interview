@@ -1,4 +1,4 @@
-package stack
+package datastructures
 
 // Stack represents a stack data structure
 type Stack struct {
