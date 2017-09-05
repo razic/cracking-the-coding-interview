@@ -10,6 +10,7 @@ type graph struct {
 }
 
 type Node interface {
+	Append(...Node)
 	Adjacent() []Node
 	Value() interface{}
 }
@@ -33,6 +34,10 @@ func (g *graph) Append(ns ...Node) {
 
 func (g *graph) Nodes() []Node {
 	return g.nodes
+}
+
+func (n *node) Append(ns ...Node) {
+	n.adjacent = append(n.adjacent, ns...)
 }
 
 func (n *node) Adjacent() []Node {
