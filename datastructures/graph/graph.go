@@ -23,8 +23,8 @@ func NewGraph() Graph {
 	return &graph{}
 }
 
-func NewNode() Node {
-	return &node{}
+func NewNode(v interface{}) Node {
+	return &node{value: v}
 }
 
 func (g *graph) Append(ns ...Node) {

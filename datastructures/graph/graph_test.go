@@ -12,6 +12,15 @@ func TestNewGraph(t *testing.T) {
 	}
 }
 
+func TestNewNode(t *testing.T) {
+	x := &struct{}{}
+	g := NewNode(x)
+
+	if g.Value() != x {
+		t.Fatalf("unexpected node")
+	}
+}
+
 func TestGraphAppend(t *testing.T) {
 	g := NewGraph()
 	a, b := &node{}, &node{}
