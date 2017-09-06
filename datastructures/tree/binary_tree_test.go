@@ -15,7 +15,21 @@ func TestNewBinaryTree(t *testing.T) {
 }
 
 func TestBinaryTreeRoot(t *testing.T) {
-	if NewBinaryTree(1).Root() == nil {
+	a := NewBinaryNode(3)
+	b := NewBinaryNode(5)
+	tr := NewBinaryTree(a)
+
+	if NewBinaryTree(nil).Root() != nil {
+		t.Fatal("unexpected value")
+	}
+
+	if tr.Root() != a {
+		t.Fatal("unexpected value")
+	}
+
+	tr.SetRoot(b)
+
+	if tr.Root() != b {
 		t.Fatal("unexpected value")
 	}
 }

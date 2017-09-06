@@ -1,6 +1,8 @@
 package tree
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestNewNode(t *testing.T) {
 	if NewNode(1) == nil {
@@ -8,15 +10,28 @@ func TestNewNode(t *testing.T) {
 	}
 }
 
-func TestNewTree(t *testing.T) {
+func TestTree(t *testing.T) {
+	a := NewNode(1)
+	b := NewNode(1)
+
+	if a == b {
+		t.Fatalf("pointer equality")
+	}
+
 	if NewTree(nil) == nil {
 		t.Fatal("expected a tree")
 	}
-}
 
-func TestTreeRoot(t *testing.T) {
-	if NewTree(1).Root() == nil {
-		t.Fatal("unexpected value")
+	if NewTree(a).Root() != a {
+		t.Fatal("unexpected root")
+	}
+
+	tr := NewTree(a)
+
+	tr.SetRoot(b)
+
+	if tr.Root() != b {
+		t.Fatal("unexpected root")
 	}
 }
 

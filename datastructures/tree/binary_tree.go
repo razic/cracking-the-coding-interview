@@ -2,6 +2,7 @@ package tree
 
 type BinaryTree interface {
 	Root() BinaryNode
+	SetRoot(BinaryNode)
 }
 
 type BinaryNode interface {
@@ -27,8 +28,8 @@ func NewBinaryNode(v interface{}) BinaryNode {
 	return &binaryNode{value: v}
 }
 
-func NewBinaryTree(v interface{}) BinaryTree {
-	return &binaryTree{root: NewBinaryNode(v)}
+func NewBinaryTree(root BinaryNode) BinaryTree {
+	return &binaryTree{root: root}
 }
 
 func (n *binaryNode) Left() BinaryNode {
@@ -57,4 +58,8 @@ func (n *binaryNode) SetValue(v interface{}) {
 
 func (t *binaryTree) Root() BinaryNode {
 	return t.root
+}
+
+func (t *binaryTree) SetRoot(root BinaryNode) {
+	t.root = root
 }

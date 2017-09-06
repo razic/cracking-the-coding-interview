@@ -2,6 +2,7 @@ package tree
 
 type Tree interface {
 	Root() Node
+	SetRoot(Node)
 }
 
 type Node interface {
@@ -24,12 +25,16 @@ func NewNode(v interface{}) Node {
 	return &node{value: v}
 }
 
-func NewTree(v interface{}) Tree {
-	return &tree{root: NewNode(v)}
+func NewTree(root Node) Tree {
+	return &tree{root: root}
 }
 
 func (t *tree) Root() Node {
 	return t.root
+}
+
+func (t *tree) SetRoot(n Node) {
+	t.root = n
 }
 
 func (n *node) Append(ns ...Node) {
