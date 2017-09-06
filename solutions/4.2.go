@@ -7,55 +7,59 @@ package main
 import (
 	"fmt"
 
-	"github.com/razic/cracking-the-coding-interview/datastructures"
+	"github.com/razic/cracking-the-coding-interview/datastructures/tree"
 )
 
 func main() {
-	ints := []int{0, 4, 6, 9, 11, 16, 17, 100}
-	tree := makeTree(ints, 2)
-
-	// pre-order breadth-first search on a search tree should visit in order
-	bfs(tree.Nodes[0], func(n *datastructures.GraphNode) {
-		fmt.Printf("%d\n", n.Value)
-	})
+	bfs(makeTree([]int{1, 3, 5, 9, 12, 24, 25}))
 }
 
-// expects array of ints to be in a specific order
-func makeTree(ints []int, ary int) *datastructures.Graph {
-	// init a tree
-	tree := &datastructures.Graph{}
-	// init the root node
-	root := &datastructures.GraphNode{Value: ints[0]}
-	// pop ints
-	ints = ints[1:]
+func makeTree(ints []int) tree.BinaryTree {
+	rt := tree.NewBinaryNode(nil)
+	tr := tree.NewBinaryTree(rt)
 
-	// bfs
-	bfs(root, func(n *datastructures.GraphNode) {
-		// get max of len(ints) or ary (for incomplete trees)
-		if len(ints) < ary {
-			ary = len(ints)
-		}
+	fill(rt, ints)
 
-		// populate the adjacent nodes from the int list
-		for _, i := range ints[:ary] {
-			n.Adjacent = append(n.Adjacent, &datastructures.GraphNode{Value: i})
-		}
-
-		// move the int list
-		ints = ints[ary:]
-	})
-
-	tree.Nodes = append(tree.Nodes, root)
-
-	return tree
+	return tr
 }
 
-func bfs(a *datastructures.GraphNode, visit func(n *datastructures.GraphNode)) {
-	queue := []*datastructures.GraphNode{a}
-	for len(queue) > 0 {
-		a = queue[0]
-		queue = queue[1:]
-		visit(a)
-		queue = append(queue, a.Adjacent...)
+// recursively fill a tree
+func fill(parent tree.BinaryNode, ints []int) {
+	l := len(ints)
+	h := l / 2
+
+	if l == 0 {
+		return
+	}
+
+	mid := ints[h]
+	left := ints[:h]
+	right := ints[h+1:]
+
+	parent.SetValue(mid)
+
+	parent.SetLeft(tree.NewBinaryNode(nil))
+	parent.SetRight(tree.NewBinaryNode(nil))
+
+	fill(parent.Left(), left)
+	fill(parent.Right(), right)
+}
+
+// used to verify the ordering
+func bfs(t tree.BinaryTree) {
+	q := []tree.BinaryNode{t.Root()}
+
+	for len(q) > 0 {
+		n := q[0]
+		if n.Value() != nil {
+			fmt.Println(n.Value())
+		}
+		if n.Left() != nil {
+			q = append(q, n.Left())
+		}
+		if n.Right() != nil {
+			q = append(q, n.Right())
+		}
+		q = q[1:]
 	}
 }
