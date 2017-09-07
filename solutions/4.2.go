@@ -26,21 +26,19 @@ func makeTree(ints []int) tree.BinaryTree {
 // recursively fill a tree
 func fill(parent tree.BinaryNode, ints []int) {
 	l := len(ints)
-	h := l / 2
 
 	if l == 0 {
 		return
 	}
 
+	h := l / 2
 	mid := ints[h]
 	left := ints[:h]
 	right := ints[h+1:]
 
 	parent.SetValue(mid)
-
 	parent.SetLeft(tree.NewBinaryNode(nil))
 	parent.SetRight(tree.NewBinaryNode(nil))
-
 	fill(parent.Left(), left)
 	fill(parent.Right(), right)
 }
