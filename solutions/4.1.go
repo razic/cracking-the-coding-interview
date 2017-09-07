@@ -6,78 +6,70 @@ package main
 import (
 	"fmt"
 
-	"github.com/razic/cracking-the-coding-interview/datastructures"
+	"github.com/razic/cracking-the-coding-interview/datastructures/graph"
 )
 
 func main() {
 	// init a graph
-	graph := &datastructures.Graph{}
+	g := graph.NewGraph()
 
 	// init some points
-	node0 := &datastructures.GraphNode{Value: 0}
-	node1 := &datastructures.GraphNode{Value: 1}
-	node2 := &datastructures.GraphNode{Value: 2}
-	node3 := &datastructures.GraphNode{Value: 3}
-	node4 := &datastructures.GraphNode{Value: 4}
-	node5 := &datastructures.GraphNode{Value: 5}
-	node6 := &datastructures.GraphNode{Value: 6}
+	n0 := graph.NewNode(1)
+	n1 := graph.NewNode(1)
+	n2 := graph.NewNode(2)
+	n3 := graph.NewNode(3)
+	n4 := graph.NewNode(4)
+	n5 := graph.NewNode(5)
+	n6 := graph.NewNode(6)
 
 	// place the points in the graph
-	graph.Nodes = append(graph.Nodes, node0)
-	graph.Nodes = append(graph.Nodes, node1)
-	graph.Nodes = append(graph.Nodes, node2)
-	graph.Nodes = append(graph.Nodes, node3)
-	graph.Nodes = append(graph.Nodes, node4)
-	graph.Nodes = append(graph.Nodes, node5)
-	graph.Nodes = append(graph.Nodes, node6)
+	g.Append(n0, n1, n2, n3, n4, n5, n6)
 
 	// make some connections between nodes
-	node0.Adjacent = append(node0.Adjacent, node1)
-	node0.Adjacent = append(node0.Adjacent, node2)
-	node2.Adjacent = append(node2.Adjacent, node1)
-	node2.Adjacent = append(node2.Adjacent, node3)
-	node3.Adjacent = append(node3.Adjacent, node2)
-	node3.Adjacent = append(node3.Adjacent, node4)
-	node4.Adjacent = append(node4.Adjacent, node5)
-	node4.Adjacent = append(node4.Adjacent, node6)
-	node6.Adjacent = append(node6.Adjacent, node4)
+	n0.Append(n1, n2)
+	n2.Append(n1, n3)
+	n3.Append(n2, n4)
+	n4.Append(n5, n6)
+	n6.Append(n4)
 
 	// check to see if there is a route between some nodes
-	if route(node0, node6) != true {
+	if route(n0, n6) != true {
 		fmt.Printf("your algorithm is borked")
 	}
-	if route(node0, node2) != true {
+	if route(n0, n2) != true {
 		fmt.Printf("your algorithm is borked")
 	}
-	if route(node6, node3) != false {
+	if route(n6, n3) != false {
 		fmt.Printf("your algorithm is borked")
 	}
 }
 
-func route(a, b *datastructures.GraphNode) bool {
+func route(a, b graph.Node) bool {
 	return bfs(a, b)
 }
 
-func bfs(a, b *datastructures.GraphNode) bool {
-	visited := map[*datastructures.GraphNode]bool{}
-	queue := []*datastructures.GraphNode{a}
+func bfs(a, b graph.Node) bool {
+	visited := map[graph.Node]bool{} // needed to detect loops
+	queue := []graph.Node{a}         // used to perform traversal
 
 	for len(queue) > 0 {
 		a = queue[0]
-		queue = queue[1:]
+		queue = queue[1:] // pop the queue
 
 		if a == b {
-			return true
+			return true // route found
 		}
 
-		for _, e := range a.Adjacent {
+		// add children to queue
+		for _, e := range a.Adjacent() {
 			if visited[e] == false {
 				queue = append(queue, e)
 			}
 		}
 
-		visited[a] = true
+		visited[a] = true // mark as visited
 	}
 
+	// no route found
 	return false
 }
