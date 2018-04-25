@@ -9,8 +9,6 @@
 
 package main
 
-import "os"
-
 func isPermutationOfPalindrome(str string) bool {
 	pairs := make(map[rune]int)
 	numRunes := 0
@@ -54,14 +52,4 @@ func isPermutationOfPalindrome(str string) bool {
 	}
 
 	return false
-}
-
-func main() {
-	if len(os.Args) < 2 {
-		os.Exit(1)
-	}
-
-	if !isPermutationOfPalindrome(os.Args[1]) {
-		os.Exit(1)
-	}
 }

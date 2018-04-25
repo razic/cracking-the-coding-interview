@@ -9,12 +9,6 @@
 
 package main
 
-import (
-	"fmt"
-	"os"
-	"strconv"
-)
-
 func urlify(str []byte, length int) {
 	spacing := len(str) - length
 
@@ -28,21 +22,4 @@ func urlify(str []byte, length int) {
 			str[i+spacing] = str[i]
 		}
 	}
-}
-
-func main() {
-	if len(os.Args) < 3 {
-		os.Exit(1)
-	}
-
-	str := []byte(os.Args[1])
-	n, err := strconv.Atoi(os.Args[2])
-
-	if err != nil {
-		os.Exit(1)
-	}
-
-	urlify(str, n)
-
-	fmt.Printf("%s\n", str)
 }

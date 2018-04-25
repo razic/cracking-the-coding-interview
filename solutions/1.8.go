@@ -3,8 +3,6 @@
 
 package main
 
-import "fmt"
-
 func zeroMatrix(matrix [][]int, n, m int) {
 	rows, cols := make(map[int]bool), make(map[int]bool)
 
@@ -26,26 +24,5 @@ func zeroMatrix(matrix [][]int, n, m int) {
 		for j := 0; j < len(cols); j++ {
 			matrix[i][j] = 0
 		}
-	}
-}
-
-func main() {
-	n, m := 4, 5
-	matrix := [][]int{
-		[]int{1, 1, 0, 1, 1},
-		[]int{1, 1, 1, 1, 0},
-		[]int{1, 0, 1, 1, 1},
-		[]int{1, 1, 1, 1, 1},
-	}
-
-	for i := 0; i < n; i++ {
-		fmt.Printf("%v\n", matrix[i])
-	}
-
-	zeroMatrix(matrix, n, m)
-	fmt.Printf("\n")
-
-	for i := 0; i < n; i++ {
-		fmt.Printf("%v\n", matrix[i])
 	}
 }

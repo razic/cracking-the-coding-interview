@@ -4,7 +4,6 @@ package main
 
 import (
 	"container/list"
-	"fmt"
 )
 
 func removeDups(l list.List) list.List {
@@ -26,29 +25,4 @@ func removeDups(l list.List) list.List {
 
 	// return new list
 	return l2
-}
-
-func main() {
-	l := list.List{}
-
-	l.PushBack(1)
-	l.PushBack(2)
-	l.PushBack(2)
-	l.PushBack(3)
-	l.PushBack(4)
-	l.PushBack(1)
-
-	l2 := removeDups(l)
-
-	for e := l.Front(); e != nil; e = e.Next() {
-		fmt.Printf("%v", e.Value)
-	}
-
-	fmt.Printf("\n")
-
-	for e := l2.Front(); e != nil; e = e.Next() {
-		fmt.Printf("%v", e.Value)
-	}
-
-	fmt.Printf("\n")
 }

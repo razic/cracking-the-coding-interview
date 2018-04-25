@@ -3,11 +3,7 @@
 
 package main
 
-import (
-	"os"
-)
-
-func isUnique(str string) bool {
+func IsUnique(str string) bool {
 	for i, runeA := range str {
 		for j, runeB := range str {
 			// skip if we are on the same index in both loops
@@ -23,14 +19,4 @@ func isUnique(str string) bool {
 	}
 
 	return true
-}
-
-func main() {
-	if len(os.Args) != 2 {
-		os.Exit(1)
-	}
-
-	if !isUnique(os.Args[1]) {
-		os.Exit(1)
-	}
 }

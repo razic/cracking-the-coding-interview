@@ -6,7 +6,6 @@ package main
 
 import (
 	"bytes"
-	"os"
 	"strings"
 )
 
@@ -21,14 +20,4 @@ func isRotation(a, b string) bool {
 	}
 
 	return false
-}
-
-func main() {
-	if len(os.Args) < 3 {
-		os.Exit(1)
-	}
-
-	if !isRotation(os.Args[1], os.Args[2]) {
-		os.Exit(1)
-	}
 }

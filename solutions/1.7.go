@@ -4,8 +4,6 @@
 
 package main
 
-import "fmt"
-
 func rotate(matrix [][]int, n int) {
 	for layer := 0; layer < n/2; layer++ {
 		first := layer
@@ -27,26 +25,5 @@ func rotate(matrix [][]int, n int) {
 			// right =  top
 			matrix[i][last] = top
 		}
-	}
-}
-
-func main() {
-	m := [][]int{
-		[]int{1, 2, 3, 4},
-		[]int{5, 6, 7, 8},
-		[]int{9, 10, 11, 12},
-		[]int{13, 14, 15, 16},
-	}
-
-	for _, row := range m {
-		fmt.Printf("%v\n", row)
-	}
-
-	fmt.Printf("\n")
-
-	rotate(m, 4)
-
-	for _, row := range m {
-		fmt.Printf("%v\n", row)
 	}
 }

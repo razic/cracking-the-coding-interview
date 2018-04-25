@@ -5,7 +5,6 @@ package main
 
 import (
 	"container/list"
-	"os"
 )
 
 func kthFromLast(k int, l list.List) *list.Element {
@@ -42,27 +41,4 @@ func kthFromLast(k int, l list.List) *list.Element {
 	}
 
 	return d
-}
-
-func main() {
-	l := list.List{}
-
-	l.PushBack(8)
-	l.PushBack(2)
-	l.PushBack(9)
-	l.PushBack(1)
-	l.PushBack(1)
-	l.PushBack(3)
-	l.PushBack(7)
-
-	i := 0
-
-	for a, b := l.Back(), kthFromLast(0, l); a == b; i++ {
-		a = a.Prev()
-		b = kthFromLast(i, l)
-	}
-
-	if i == 0 {
-		os.Exit(1)
-	}
 }

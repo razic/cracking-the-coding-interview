@@ -6,7 +6,6 @@ package main
 
 import (
 	"container/list"
-	"fmt"
 )
 
 func partition(l list.List, x int) list.List {
@@ -21,28 +20,4 @@ func partition(l list.List, x int) list.List {
 	}
 
 	return l2
-}
-
-func main() {
-	l := list.List{}
-
-	l.PushBack(1)
-	l.PushBack(8)
-	l.PushBack(3)
-	l.PushBack(7)
-	l.PushBack(2)
-
-	l2 := partition(l, 3)
-
-	for e := l.Front(); e != nil; e = e.Next() {
-		fmt.Printf("%v", e.Value)
-	}
-
-	fmt.Printf("\n")
-
-	for e := l2.Front(); e != nil; e = e.Next() {
-		fmt.Printf("%v", e.Value)
-	}
-
-	fmt.Printf("\n")
 }

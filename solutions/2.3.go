@@ -5,7 +5,6 @@ package main
 
 import (
 	"container/list"
-	"fmt"
 )
 
 func deleteMiddleNode(e *list.Element) bool {
@@ -17,27 +16,4 @@ func deleteMiddleNode(e *list.Element) bool {
 	*e = *e.Next()
 
 	return true
-}
-
-func main() {
-	l := list.List{}
-
-	l.PushBack(1)
-	l.PushBack(2)
-	e := l.PushBack(3)
-	l.PushBack(4)
-	l.PushBack(5)
-
-	for e := l.Front(); e != nil; e = e.Next() {
-		fmt.Printf("%v", e.Value)
-	}
-
-	fmt.Printf("\n")
-	deleteMiddleNode(e)
-
-	for e := l.Front(); e != nil; e = e.Next() {
-		fmt.Printf("%v", e.Value)
-	}
-
-	fmt.Printf("\n")
 }

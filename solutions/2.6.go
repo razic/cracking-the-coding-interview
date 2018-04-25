@@ -5,7 +5,6 @@ package main
 
 import (
 	"container/list"
-	"os"
 )
 
 func isPalindrome(l list.List) bool {
@@ -18,20 +17,4 @@ func isPalindrome(l list.List) bool {
 	}
 
 	return true
-}
-
-func main() {
-	l := list.List{}
-
-	l.PushBack("t")
-	l.PushBack("a")
-	l.PushBack("c")
-	l.PushBack("o")
-	l.PushBack("c")
-	l.PushBack("a")
-	l.PushBack("t")
-
-	if !isPalindrome(l) {
-		os.Exit(1)
-	}
 }

@@ -7,7 +7,6 @@ package main
 
 import (
 	"container/list"
-	"fmt"
 )
 
 func listToInt(l list.List) int {
@@ -33,21 +32,4 @@ func intToList(n int) list.List {
 
 func sumLists(a, b list.List) list.List {
 	return intToList(listToInt(a) + listToInt(b))
-}
-
-func main() {
-	a, b := list.List{}, list.List{}
-
-	a.PushBack(7)
-	a.PushBack(1)
-	a.PushBack(6)
-	b.PushBack(5)
-	b.PushBack(9)
-	b.PushBack(2)
-
-	c := sumLists(a, b)
-
-	for e := c.Front(); e != nil; e = e.Next() {
-		fmt.Printf("%v", e.Value)
-	}
 }

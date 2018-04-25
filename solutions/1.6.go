@@ -8,9 +8,7 @@ package main
 
 import (
 	"bytes"
-	"fmt"
 	"math"
-	"os"
 	"strconv"
 )
 
@@ -58,12 +56,4 @@ func compress(str string) string {
 	}
 
 	return buf.String()
-}
-
-func main() {
-	if len(os.Args) < 2 {
-		os.Exit(1)
-	}
-
-	fmt.Printf("%s\n", compress(os.Args[1]))
 }

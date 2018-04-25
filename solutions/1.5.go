@@ -13,18 +13,7 @@ package main
 
 import (
 	"bytes"
-	"os"
 )
-
-func main() {
-	if len(os.Args) < 3 {
-		os.Exit(1)
-	}
-
-	if !isOneAway(os.Args[1], os.Args[2]) {
-		os.Exit(1)
-	}
-}
 
 func isOneAway(a, b string) bool {
 	if a == b {

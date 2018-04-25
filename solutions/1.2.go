@@ -3,10 +3,6 @@
 
 package main
 
-import (
-	"os"
-)
-
 func checkPermutation(strA, strB string) bool {
 	// lengths are different, can't be a permutation
 	if len(strA) != len(strB) {
@@ -50,14 +46,4 @@ func checkPermutation(strA, strB string) bool {
 
 	// if we got this far, it's a valid permutation
 	return true
-}
-
-func main() {
-	if len(os.Args) < 3 {
-		os.Exit(1)
-	}
-
-	if !checkPermutation(os.Args[1], os.Args[2]) {
-		os.Exit(1)
-	}
 }
