@@ -3,7 +3,7 @@
 
 package main
 
-func checkPermutation(strA, strB string) bool {
+func CheckPermutation(strA, strB string) bool {
 	// lengths are different, can't be a permutation
 	if len(strA) != len(strB) {
 		return false
