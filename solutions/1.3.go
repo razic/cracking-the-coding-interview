@@ -9,7 +9,7 @@
 
 package main
 
-func urlify(str []byte, length int) {
+func Urlify(str []byte, length int) {
 	spacing := len(str) - length
 
 	for i := length - 1; i >= 0; i-- {
